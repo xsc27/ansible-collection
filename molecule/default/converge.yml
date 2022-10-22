@@ -1,0 +1,8 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: digitalroots.infra.base
+  # tasks:
+  #   - name: Include role
+  #     ansible.builtin.include_role:
+  #       name: digitalroots.infra.base

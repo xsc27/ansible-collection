@@ -1,0 +1,28 @@
+dependency:
+  name: galaxy
+  options:
+    upgrade: true
+driver:
+  name: podman
+platforms:
+  - name: ${TOX_ENV_NAME:-instance}
+    registry:
+      url: ${REGISTRY_URL:-registry.fedoraproject.org}
+    image: fedora:${IMAGE_TAG:-latest}
+    # dockerfile: ../_resources/Containerfile.j2
+    # command: ${CONTAINER_CMD:-/lib/systemd/systemd}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
+      - /tmp
+    capabilities:
+      - SYS_ADMIN
+    privileged: false
+    pre_build_image: false
+    groups: [molecule]
+provisioner:
+  name: ansible
+  log: false
+  env:
+    ANSIBLE_CONFIG: ansible.cfg
